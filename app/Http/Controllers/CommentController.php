@@ -36,6 +36,13 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         //
+        $data = $request->only(['commentText', 'article_id']);
+        $comment = Comment::create($data);
+        return Response([
+          'status' => 0,
+          'data' => $comment,
+          'msg' => 'ok'
+        ], 200);
     }
 
     /**
@@ -47,6 +54,9 @@ class CommentController extends Controller
     public function show(Comment $comment)
     {
         //
+        $user = $comment->user;
+        $article = $comment->article;
+        return $comment;
     }
 
     /**
@@ -81,5 +91,11 @@ class CommentController extends Controller
     public function destroy(Comment $comment)
     {
         //
+        Comment::destroy($comment['id']);
+        return Response([
+          'status' => 0,
+          'data' => $comment,
+          'msg' => 'ok'
+        ], 200);
     }
 }
