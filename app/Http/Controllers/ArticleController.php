@@ -55,6 +55,7 @@ class ArticleController extends Controller
     public function show(Article $article)
     {
         //
+        $article->comments;
         return $article;
     }
 

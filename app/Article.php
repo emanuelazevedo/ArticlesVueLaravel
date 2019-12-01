@@ -9,11 +9,6 @@ class Article extends Model
     //
     protected $fillable = ['title', 'text'];
 
-    public function article()
-    {
-        return $this->belongsTo(Article::class);
-    }
-
     public function comments()
     {
         return $this->hasMany(Comment::class);
