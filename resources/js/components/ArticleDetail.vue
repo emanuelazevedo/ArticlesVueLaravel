@@ -2,6 +2,9 @@
     <div>
         <h1>{{article.title}}</h1>
         <h3>{{article.text}}</h3>
+        <div>
+            //foreach dos comentarios
+        </div>
         
     </div>
 </template>
