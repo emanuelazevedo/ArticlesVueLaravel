@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Article extends Model
 {
     //
-    protected $fillable = ['title', 'text'];
+    protected $fillable = ['title', 'text', 'user_id'];
 
     public function comments()
     {

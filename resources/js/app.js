@@ -1,22 +1,40 @@
+/**
+ * First we will load all of this project's JavaScript dependencies which
+ * includes Vue and other libraries. It is a great starting point when
+ * building robust, powerful web applications using Vue and Laravel.
+ */
+
 require('./bootstrap');
-import Vue from 'vue'
-import Routes from './routes.js'
-import App from './components/App'
-import Home from './components/Home'
-import Article from './components/Article'
-import AddArticle from './components/AddArticle'
-import ArticleDetail from './components/ArticleDetail'
-import ArticleUpdate from './components/ArticleUpdate'
 
+window.Vue = require('vue');
+import Routes from './routes.js';
 
-Vue.component('home', Home)
-Vue.component('article', Article)
-Vue.component('addarticle', AddArticle)
-Vue.component('articledetail', ArticleDetail)
-Vue.component('articleupdate', ArticleUpdate)
+/**
+ * The following block of code may be used to automatically register your
+ * Vue components. It will recursively scan this directory for the Vue
+ * components and automatically register them with their "basename".
+ *
+ * Eg. ./components/ExampleComponent.vue -> <example-component></example-component>
+ */
+
+// const files = require.context('./', true, /\.vue$/i)
+// files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
+
+Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+Vue.component('App', require('./components/App.vue').default);
+Vue.component('Home', require('./components/Home.vue').default);
+Vue.component('Article', require('./components/Article.vue').default);
+Vue.component('AddArticle', require('./components/AddArticle.vue').default);
+Vue.component('ArticleDetail', require('./components/ArticleDetail.vue').default);
+Vue.component('ArticleUpdate', require('./components/ArticleUpdate.vue').default);
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
 const app = new Vue({
     el: '#app',
     router: Routes,
-    render:h => h(App)
-})
+    render:h => h(Vue.component('App', require('./components/App.vue').default))
+});

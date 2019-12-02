@@ -13,8 +13,19 @@ use Illuminate\Http\Request;
 |
 */
 
+Route::post('/register', 'AuthenticationController@register');
+Route::post('/login', 'AuthenticationController@login');
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 Route::resource('article', 'ArticleController');
+Route::resource('comment', 'CommentController');
+
+Route::middleware('auth:api')->group(function() {
+    Route::get('/logout', 'AuthenticationController@logout');
+});
+
+Route::post('/login', 'AuthenticationController@login');
+Route::post('/register', 'AuthenticationController@register');
