@@ -8,6 +8,7 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 import Routes from './routes.js';
+import store from './store/index.js';
 
 /**
  * The following block of code may be used to automatically register your
@@ -35,6 +36,7 @@ Vue.component('ArticleUpdate', require('./components/ArticleUpdate.vue').default
 
 const app = new Vue({
     el: '#app',
+    store: store,
     router: Routes,
     render:h => h(Vue.component('App', require('./components/App.vue').default))
 });

@@ -1,10 +1,11 @@
 import Vue from 'vue'
 import Vuex from 'Vuex'
+import articles from './modules/articles';
 
 Vue.use(Vuex)
 
-export const store = new Vuex.store({
-    state: {
-        articles: []
-    },
+export default new Vuex.Store({
+    modules: {
+        articles
+    }
 })
