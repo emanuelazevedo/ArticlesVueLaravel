@@ -28,6 +28,12 @@ Vue.component('Article', require('./components/Article.vue').default);
 Vue.component('AddArticle', require('./components/AddArticle.vue').default);
 Vue.component('ArticleDetail', require('./components/ArticleDetail.vue').default);
 Vue.component('ArticleUpdate', require('./components/ArticleUpdate.vue').default);
+
+Vue.component('Login', require('./components/auth/Login').default);
+Vue.component('Register', require('./components/auth/Register').default);
+Vue.component('Logout', require('./components/auth/Logout').default);
+
+
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application

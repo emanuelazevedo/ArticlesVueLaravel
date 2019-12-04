@@ -38,11 +38,12 @@ class CommentController extends Controller
         //
         $data = $request->only(['commentText', 'article_id']);
         $comment = Comment::create($data);
-        return Response([
-          'status' => 0,
-          'data' => $comment,
-          'msg' => 'ok'
-        ], 200);
+        // return Response([
+        //   'status' => 0,
+        //   'data' => $comment,
+        //   'msg' => 'ok'
+        // ], 200);
+        return response()->json($comment);
     }
 
     /**

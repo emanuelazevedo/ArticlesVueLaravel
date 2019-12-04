@@ -2,13 +2,18 @@ import axios from 'axios';
 
 const state = {
     articles:[],
+    token: localStorage.getItem('access_token') || null,
 };
 
 const getters = {
-    allArticles: (state) => state.articles
+    allArticles: (state) => state.articles,
+    loggedIn(state) {
+        return state.token !== null
+    }
 };
 
 const actions = {
+    //actions relativos aos artigos e seus comentários
     async fetchArticles({ commit }) {
         const res = await axios.get('/api/article');
         console.log('fetcharticle',res.data);
@@ -39,7 +44,26 @@ const actions = {
         const res = await axios.post('/api/comment', newComment);
 
         commit('newComment', res.data);
+    },
+
+    //actions de autenticaçao
+    async retrieveToken({ commit }, credentials) {
+        const res = await axios.post('/api/auth/login', credentials);
+        console.log(res.data);
+        localStorage.setItem('access_token', res.data.token);
+        commit('retrieveToken', res.data.token);
+    },
+    async registerUser({ commit }, newUser) {
+        const res = await axios.post('/api/auth/register', newUser);
+        console.log(res.data);
+    },
+    async destroyToken({ commit }) {
+        const res = await axios.get('/api/auth/logout');
+        console.log(res.data);
+        localStorage.removeItem('access_token');
+        commit('destroyToken');
     }
+
 };
 
 const mutations = {
@@ -54,8 +78,11 @@ const mutations = {
     },
     newComment: (state, commentData) => {
         state.articles.comments.push(commentData);
-        
+        console.log('state',state.articles.comments);
     },
+    //
+    retrieveToken: (state, token) => (state.token = token),
+    destroyToken: (state) => (state.token = null),
 };
 
 export default {

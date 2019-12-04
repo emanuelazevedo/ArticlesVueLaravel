@@ -12,42 +12,13 @@ use Illuminate\Support\Facades\Auth;
 
 class AuthenticationController extends Controller
 {
-    public function login(Request $request)
+    public function register (Request $request)
     {
-        $http = new \GuzzleHttp\Client;
-        try {
-            $response = $http->post('articles.demo/oauth/token', [
-                'form_params' => [
-                    'grant_type' => 'password',
-                    'client_id' => 2,
-                    'client_secret' => 's9QLqyl6wxjKaurjFKfsDNMmn23HDt7VH1GxF6DI',
-                    'email' => $request->email,
-                    'password' => $request->password,
-                ]
-            ]);
-            return $response->getBody();
-        } catch (\GuzzleHttp\Exception\BadResponseException $e) {
-            if ($e->getCode() === 400) {
-                return response()->json('Invalid Request. Please enter a username or a password.', $e->getCode());
-            } else if ($e->getCode() === 401) {
-                return response()->json('Your credentials are incorrect. Please try again', $e->getCode());
-            }
-            return response()->json('Something went wrong on the server.', $e->getCode());
-        }
-    }
-
-    public function register (Request $request) {
-        $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
-            'password' => 'required|string|min:6|confirmed',
-        ]);
-    
-        if ($validator->fails())
-        {
-            return response(['errors'=>$validator->errors()->all()], 422);
-        }
-    
+        //
+        
+        $data = $request->only(['name', 'email', 'password']);
+        
+        
         $request['password']=Hash::make($request['password']);
         $user = User::create($request->toArray());
     
@@ -55,16 +26,38 @@ class AuthenticationController extends Controller
         $response = ['token' => $token];
     
         return response($response, 200);
-    
+
     }
 
-
-    public function logout()
-    {
-        auth()->user()->tokens->each(function ($token, $key) {
-            $token->delete();
-        });
-        return response()->json('Logged out successfully', 200);
+    public function login (Request $request) {
+        $user = User::where('email', $request->email)->first();
+        
+        if ($user) {
+            if (Hash::check($request->password, $user->password)) {
+                
+                $token = $user->createToken('Laravel Password Grant Client')->accessToken;
+                $response = ['token' => $token];
+                return response($response, 200);
+            } else {
+                $response = 'Password mismatch';
+                return response($response, 422);
+            }
+        } else {
+            $response = 'User doesn\'t exist';
+            return response($response, 422);
+        }
+    }
+    public function logout () {
+        
+        // $token = $request->user()->token();
+        // $token->revoke();
+        // $response = 'You have been succesfully logged out!';
+        // return response($response, 200);
+        $token = Auth::user()->token();
+        var_dump($token);
+        die();
+        $token->revoke();
+        return response()->json('Logged out', 200);
     }
 
     // public function init() {

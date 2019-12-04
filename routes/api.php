@@ -13,8 +13,8 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('/register', 'AuthenticationController@register');
-Route::post('/login', 'AuthenticationController@login');
+Route::post('/auth/register', 'AuthenticationController@register');
+Route::post('/auth/login', 'AuthenticationController@login');
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
@@ -23,9 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('article', 'ArticleController');
 Route::resource('comment', 'CommentController');
 
-Route::middleware('auth:api')->group(function() {
-    Route::get('/logout', 'AuthenticationController@logout');
-});
-
-Route::post('/login', 'AuthenticationController@login');
-Route::post('/register', 'AuthenticationController@register');
+// Route::middleware('auth:api')->group(function() {
+    Route::get('/auth/logout', 'AuthenticationController@logout');
+// });

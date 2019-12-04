@@ -6,6 +6,11 @@ import AddArticle from './components/AddArticle.vue';
 import ArticleDetail from './components/ArticleDetail.vue';
 import ArticleUpdate from './components/ArticleUpdate.vue';
 
+import Login from './components/auth/Login.vue';
+import Register from './components/auth/Register.vue';
+import Logout from './components/auth/Logout.vue';
+
+
 Vue.use(Router);
 
 export default new Router({
@@ -31,6 +36,21 @@ export default new Router({
             name: 'articleupdate',
             component: ArticleUpdate,
             props: true
+        },
+        {
+            path: '/login',
+            name: 'login',
+            component: Login
+        },
+        {
+            path: '/register',
+            name: 'register',
+            component: Register
+        },
+        {
+            path: '/logout',
+            name: 'logout',
+            component: Logout
         },
     ]
 });
