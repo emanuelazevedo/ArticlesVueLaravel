@@ -49,7 +49,7 @@ const actions = {
     //actions de autenticaçao
     async retrieveToken({ commit }, credentials) {
         const res = await axios.post('/api/auth/login', credentials);
-        console.log(res.data);
+        console.log('login',res.data);
         localStorage.setItem('access_token', res.data.token);
         commit('retrieveToken', res.data.token);
     },
@@ -58,8 +58,8 @@ const actions = {
         console.log(res.data);
     },
     async destroyToken({ commit }) {
-        const res = await axios.get('/api/auth/logout');
-        console.log(res.data);
+        axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
+        await axios.get('/api/auth/logout').catch(err => console.log('err', err));
         localStorage.removeItem('access_token');
         commit('destroyToken');
     }
@@ -82,7 +82,10 @@ const mutations = {
     },
     //
     retrieveToken: (state, token) => (state.token = token),
-    destroyToken: (state) => (state.token = null),
+    destroyToken: (state) => {
+        state.token = null
+        console.log(state.token);
+    },
 };
 
 export default {

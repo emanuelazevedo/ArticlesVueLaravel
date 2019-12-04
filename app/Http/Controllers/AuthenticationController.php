@@ -53,10 +53,10 @@ class AuthenticationController extends Controller
         // $token->revoke();
         // $response = 'You have been succesfully logged out!';
         // return response($response, 200);
+        
         $token = Auth::user()->token();
-        var_dump($token);
-        die();
-        $token->revoke();
+        
+        $token->delete();
         return response()->json('Logged out', 200);
     }
 

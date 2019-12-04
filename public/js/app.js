@@ -57365,7 +57365,7 @@ var actions = {
 
           case 3:
             res = _context7.sent;
-            console.log(res.data);
+            console.log('login', res.data);
             localStorage.setItem('access_token', res.data.token);
             commit('retrieveToken', res.data.token);
 
@@ -57398,22 +57398,23 @@ var actions = {
     });
   },
   destroyToken: function destroyToken(_ref9) {
-    var commit, res;
+    var commit;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function destroyToken$(_context9) {
       while (1) {
         switch (_context9.prev = _context9.next) {
           case 0:
             commit = _ref9.commit;
-            _context9.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/auth/logout'));
+            axios__WEBPACK_IMPORTED_MODULE_1___default.a.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
+            _context9.next = 4;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/auth/logout')["catch"](function (err) {
+              return console.log('err', err);
+            }));
 
-          case 3:
-            res = _context9.sent;
-            console.log(res.data);
+          case 4:
             localStorage.removeItem('access_token');
             commit('destroyToken');
 
-          case 7:
+          case 6:
           case "end":
             return _context9.stop();
         }
@@ -57451,7 +57452,8 @@ var mutations = {
     return state.token = token;
   },
   destroyToken: function destroyToken(state) {
-    return state.token = null;
+    state.token = null;
+    console.log(state.token);
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = ({

@@ -23,6 +23,6 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::resource('article', 'ArticleController');
 Route::resource('comment', 'CommentController');
 
-// Route::middleware('auth:api')->group(function() {
+Route::middleware('auth:api')->group(function() {
     Route::get('/auth/logout', 'AuthenticationController@logout');
-// });
+});
