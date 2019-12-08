@@ -13,40 +13,58 @@ import Logout from './components/auth/Logout.vue';
 
 Vue.use(Router);
 
-export default new Router({
+const router =  new Router({
     mode: 'history',
     routes: [
         {
             path: '/',
             name: 'home',
-            component: Home
+            component: Home,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/addarticle',
             name: 'addarticle',
-            component: AddArticle
+            component: AddArticle,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/article/:id',
             name: 'articledetail',
             component: ArticleDetail,
-            props: true
+            props: true,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/articleedit/:id',
             name: 'articleupdate',
             component: ArticleUpdate,
-            props: true
+            props: true,
+            meta: {
+                requiresAuth: true
+            }
         },
         {
             path: '/login',
             name: 'login',
-            component: Login
+            component: Login,
+            meta: {
+                guest: true
+            }
         },
         {
             path: '/register',
             name: 'register',
-            component: Register
+            component: Register,
+            meta: {
+                guest: true
+            }
         },
         {
             path: '/logout',
@@ -55,3 +73,16 @@ export default new Router({
         },
     ]
 });
+
+router.beforeEach((to, from, next) => {
+    if(to.matched.some(record => record.meta.requiresAuth)) {
+        if(localStorage.getItem('access_token') == null) {
+            next({
+                path: '/login',
+                params: { nextUrl: to.fullPath }
+            })
+        }
+    }
+})
+
+export default router;
