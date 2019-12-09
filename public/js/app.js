@@ -38557,11 +38557,15 @@ var render = function() {
         "div",
         { attrs: { id: "nav" } },
         [
-          _c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")]),
+          _vm.loggedIn
+            ? _c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")])
+            : _vm._e(),
           _vm._v(" "),
-          _c("router-link", { attrs: { to: "/addarticle" } }, [
-            _vm._v("New Article")
-          ]),
+          _vm.loggedIn
+            ? _c("router-link", { attrs: { to: "/addarticle" } }, [
+                _vm._v("New Article")
+              ])
+            : _vm._e(),
           _vm._v(" "),
           !_vm.loggedIn
             ? _c("router-link", { attrs: { to: "/login" } }, [_vm._v("Login")])

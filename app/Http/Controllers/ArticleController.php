@@ -92,6 +92,7 @@ class ArticleController extends Controller
         //     'data' => $article,
         //     'msg' => 'ok'
         // ], 200);
+        
         return $article;
     }
 
