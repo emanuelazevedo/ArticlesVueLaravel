@@ -2,13 +2,13 @@ import axios from 'axios';
 
 const state = {
     articles:[],
-    token: localStorage.getItem('access_token') || null,
+    token: '' || null,
 };
 
 const getters = {
     allArticles: (state) => state.articles,
     loggedIn(state) {
-        return state.token !== null
+        return state.token
     }
 };
 
@@ -50,7 +50,7 @@ const actions = {
     async retrieveToken({ commit }, credentials) {
         const res = await axios.post('/api/auth/login', credentials);
         console.log('login',res.data);
-        localStorage.setItem('access_token', res.data.token);
+        // localStorage.setItem('access_token', res.data.token);
         commit('retrieveToken', res.data.token);
     },
     async registerUser({ commit }, newUser) {
@@ -60,7 +60,7 @@ const actions = {
     async destroyToken({ commit }) {
         axios.defaults.headers.common['Authorization'] = 'Bearer ' + state.token;
         await axios.get('/api/auth/logout').catch(err => console.log('err', err));
-        localStorage.removeItem('access_token');
+        // localStorage.removeItem('access_token');
         commit('destroyToken');
     }
 

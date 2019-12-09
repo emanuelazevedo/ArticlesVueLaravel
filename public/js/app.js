@@ -1943,6 +1943,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: 'Article',
   props: ["article"],
@@ -2022,6 +2023,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
   }),
   created: function created() {
+    console.log('this.id', this.id);
     this.fetchOneArticle(this.id);
   },
   computed: Object(vuex__WEBPACK_IMPORTED_MODULE_0__["mapGetters"])(['allArticles'])
@@ -56059,6 +56061,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _components_auth_Login_vue__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./components/auth/Login.vue */ "./resources/js/components/auth/Login.vue");
 /* harmony import */ var _components_auth_Register_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./components/auth/Register.vue */ "./resources/js/components/auth/Register.vue");
 /* harmony import */ var _components_auth_Logout_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./components/auth/Logout.vue */ "./resources/js/components/auth/Logout.vue");
+/* harmony import */ var _store_index_js__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./store/index.js */ "./resources/js/store/index.js");
+
 
 
 
@@ -56086,7 +56090,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       requiresAuth: true
     }
   }, {
-    path: '/article/:id',
+    path: '/article',
     name: 'articledetail',
     component: _components_ArticleDetail_vue__WEBPACK_IMPORTED_MODULE_4__["default"],
     props: true,
@@ -56094,7 +56098,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       requiresAuth: true
     }
   }, {
-    path: '/articleedit/:id',
+    path: '/articleedit/',
     name: 'articleupdate',
     component: _components_ArticleUpdate_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     props: true,
@@ -56104,17 +56108,11 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   }, {
     path: '/login',
     name: 'login',
-    component: _components_auth_Login_vue__WEBPACK_IMPORTED_MODULE_6__["default"],
-    meta: {
-      guest: true
-    }
+    component: _components_auth_Login_vue__WEBPACK_IMPORTED_MODULE_6__["default"]
   }, {
     path: '/register',
     name: 'register',
-    component: _components_auth_Register_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
-    meta: {
-      guest: true
-    }
+    component: _components_auth_Register_vue__WEBPACK_IMPORTED_MODULE_7__["default"]
   }, {
     path: '/logout',
     name: 'logout',
@@ -56125,14 +56123,17 @@ router.beforeEach(function (to, from, next) {
   if (to.matched.some(function (record) {
     return record.meta.requiresAuth;
   })) {
-    if (localStorage.getItem('access_token') == null) {
-      next({
-        path: '/login',
-        params: {
-          nextUrl: to.fullPath
-        }
-      });
+    if (_store_index_js__WEBPACK_IMPORTED_MODULE_9__["default"].getters.loggedIn === null) {
+      console.log('not logged in');
+      next('/login');
+      return;
+    } else {
+      console.log('loggedin');
+      next();
     }
+  } else {
+    console.log('notAuth');
+    next();
   }
 });
 /* harmony default export */ __webpack_exports__["default"] = (router);
@@ -56181,14 +56182,14 @@ __webpack_require__.r(__webpack_exports__);
 
 var state = {
   articles: [],
-  token: localStorage.getItem('access_token') || null
+  token:  false || null
 };
 var getters = {
   allArticles: function allArticles(state) {
     return state.articles;
   },
   loggedIn: function loggedIn(state) {
-    return state.token !== null;
+    return state.token;
   }
 };
 var actions = {
@@ -56333,11 +56334,11 @@ var actions = {
 
           case 3:
             res = _context7.sent;
-            console.log('login', res.data);
-            localStorage.setItem('access_token', res.data.token);
+            console.log('login', res.data); // localStorage.setItem('access_token', res.data.token);
+
             commit('retrieveToken', res.data.token);
 
-          case 7:
+          case 6:
           case "end":
             return _context7.stop();
         }
@@ -56379,10 +56380,10 @@ var actions = {
             }));
 
           case 4:
-            localStorage.removeItem('access_token');
+            // localStorage.removeItem('access_token');
             commit('destroyToken');
 
-          case 6:
+          case 5:
           case "end":
             return _context9.stop();
         }

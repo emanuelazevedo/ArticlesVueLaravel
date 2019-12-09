@@ -11,6 +11,7 @@
             </router-link>
             <button @click="$emit('deleteArticle', article.id)">Delete</button>
         </div>
+        
     </div>
 </template>
 <script>

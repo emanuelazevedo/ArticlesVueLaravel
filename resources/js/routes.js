@@ -10,6 +10,8 @@ import Login from './components/auth/Login.vue';
 import Register from './components/auth/Register.vue';
 import Logout from './components/auth/Logout.vue';
 
+import store from './store/index.js';
+
 
 Vue.use(Router);
 
@@ -33,7 +35,7 @@ const router =  new Router({
             }
         },
         {
-            path: '/article/:id',
+            path: '/article',
             name: 'articledetail',
             component: ArticleDetail,
             props: true,
@@ -42,7 +44,7 @@ const router =  new Router({
             }
         },
         {
-            path: '/articleedit/:id',
+            path: '/articleedit/',
             name: 'articleupdate',
             component: ArticleUpdate,
             props: true,
@@ -54,17 +56,13 @@ const router =  new Router({
             path: '/login',
             name: 'login',
             component: Login,
-            meta: {
-                guest: true
-            }
+            
         },
         {
             path: '/register',
             name: 'register',
             component: Register,
-            meta: {
-                guest: true
-            }
+            
         },
         {
             path: '/logout',
@@ -76,12 +74,18 @@ const router =  new Router({
 
 router.beforeEach((to, from, next) => {
     if(to.matched.some(record => record.meta.requiresAuth)) {
-        if(localStorage.getItem('access_token') == null) {
-            next({
-                path: '/login',
-                params: { nextUrl: to.fullPath }
-            })
+        if(store.getters.loggedIn === null) {
+            console.log('not logged in');
+            next('/login');
+            return
+        } else {
+            console.log('loggedin');
+            next();
         }
+    } 
+    else {
+        console.log('notAuth');
+        next();
     }
 })
 
