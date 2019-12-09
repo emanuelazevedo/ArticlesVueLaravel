@@ -38557,15 +38557,11 @@ var render = function() {
         "div",
         { attrs: { id: "nav" } },
         [
-          _vm.loggedIn
-            ? _c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")])
-            : _vm._e(),
+          _c("router-link", { attrs: { to: "/" } }, [_vm._v("Home")]),
           _vm._v(" "),
-          _vm.loggedIn
-            ? _c("router-link", { attrs: { to: "/addarticle" } }, [
-                _vm._v("New Article")
-              ])
-            : _vm._e(),
+          _c("router-link", { attrs: { to: "/addarticle" } }, [
+            _vm._v("New Article")
+          ]),
           _vm._v(" "),
           !_vm.loggedIn
             ? _c("router-link", { attrs: { to: "/login" } }, [_vm._v("Login")])
@@ -56098,7 +56094,7 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
       requiresAuth: true
     }
   }, {
-    path: '/articleedit/',
+    path: '/articleedit',
     name: 'articleupdate',
     component: _components_ArticleUpdate_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
     props: true,
@@ -56258,20 +56254,24 @@ var actions = {
     });
   },
   updateArticle: function updateArticle(_ref4, updArticle) {
-    var commit, res;
+    var commit, data, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateArticle$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             commit = _ref4.commit;
-            _context4.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/article/".concat(updArticle.id), updArticle));
+            data = {
+              title: updArticle.title,
+              text: updArticle.text
+            };
+            _context4.next = 4;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/article/".concat(updArticle.id), data));
 
-          case 3:
+          case 4:
             res = _context4.sent;
             commit(updArticle, res.data);
 
-          case 5:
+          case 6:
           case "end":
             return _context4.stop();
         }
@@ -56404,13 +56404,7 @@ var mutations = {
     });
   },
   updateArticle: function updateArticle(state, updArticle) {
-    var index = state.articles.findIndex(function (article) {
-      return article.id === updArticle.id;
-    });
-
-    if (index !== -1) {
-      state.articles.splice(index, 1, updArticle);
-    }
+    return state.articles = updArticle;
   },
   newComment: function newComment(state, commentData) {
     state.articles.comments.push(commentData);

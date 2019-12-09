@@ -44,7 +44,7 @@ const router =  new Router({
             }
         },
         {
-            path: '/articleedit/',
+            path: '/articleedit',
             name: 'articleupdate',
             component: ArticleUpdate,
             props: true,

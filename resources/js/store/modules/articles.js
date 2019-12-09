@@ -31,7 +31,8 @@ const actions = {
         commit('removeArticle', id);
     },
     async updateArticle({ commit }, updArticle) {
-        const res = await axios.put(`/api/article/${updArticle.id}`, updArticle);
+        const data = {title: updArticle.title, text: updArticle.text};
+        const res = await axios.put(`/api/article/${updArticle.id}`, data);
 
         commit(updArticle, res.data);
     },
@@ -70,12 +71,7 @@ const mutations = {
     setArticles: (state, articles) => (state.articles = articles),
     newArticle: (state, article) => state.articles.push(article),
     removeArticle: (state, id) => state.articles = state.articles.filter(article => article.id !== id),
-    updateArticle: (state, updArticle) => {
-        const index = state.articles.findIndex(article => article.id === updArticle.id);
-        if(index !== -1) {
-            state.articles.splice(index, 1, updArticle);
-        }
-    },
+    updateArticle: (state, updArticle) => (state.articles = updArticle),
     newComment: (state, commentData) => {
         state.articles.comments.push(commentData);
         console.log('state',state.articles.comments);

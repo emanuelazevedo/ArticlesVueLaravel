@@ -87,11 +87,12 @@ class ArticleController extends Controller
         $article->text = $data['text'];
         $article->save();
 
-        return Response([
-            'status' => 0,
-            'data' => $article,
-            'msg' => 'ok'
-        ], 200);
+        // return Response([
+        //     'status' => 0,
+        //     'data' => $article,
+        //     'msg' => 'ok'
+        // ], 200);
+        return $article;
     }
 
     /**
