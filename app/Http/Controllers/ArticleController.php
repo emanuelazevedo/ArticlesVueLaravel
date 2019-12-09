@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Article;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Auth;
+
 class ArticleController extends Controller
 {
     /**
@@ -37,8 +39,12 @@ class ArticleController extends Controller
     public function store(Request $request)
     {
         //
+        $user = Auth::user();
+        
         $data = $request->only(['title', 'text']);
+        $data['user_id'] = $user->id;
         $article = Article::create($data);
+        
         return Response([
             'status' => 0,
             'data' => $article,

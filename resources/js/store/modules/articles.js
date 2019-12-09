@@ -15,34 +15,62 @@ const getters = {
 const actions = {
     //actions relativos aos artigos e seus comentários
     async fetchArticles({ commit }) {
-        const res = await axios.get('/api/article');
+        console.log('token', this.getters.loggedIn);
+        
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+
+        const res = await axios.get('/api/article', config);
         console.log('fetcharticle',res.data);
         commit('setArticles', res.data);
     },
     async addArticle({ commit }, article) {
-        const res = await axios.post('/api/article', article);
+        console.log('token', this.getters.loggedIn);
+        
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+
+        const res = await axios.post('/api/article', article, config);
 
         commit('newArticle', res.data);
 
     },
     async deleteArticle({ commit }, id) {
-        await axios.delete(`api/article/${id}`);
+        console.log('token', this.getters.loggedIn);
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+        await axios.delete(`api/article/${id}`, config);
 
         commit('removeArticle', id);
     },
     async updateArticle({ commit }, updArticle) {
+        console.log('token', this.getters.loggedIn);
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
         const data = {title: updArticle.title, text: updArticle.text};
-        const res = await axios.put(`/api/article/${updArticle.id}`, data);
+        const res = await axios.put(`/api/article/${updArticle.id}`, data, config);
 
         commit(updArticle, res.data);
     },
     async fetchOneArticle({ commit }, id) {
-        const res = await axios.get(`api/article/${id}`);
+        console.log('token', this.getters.loggedIn);
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+        const res = await axios.get(`api/article/${id}`, config);
         console.log('fetchonearticle',res.data);
         commit('setArticles', res.data);
     },
     async addComment({ commit }, newComment) {
-        const res = await axios.post('/api/comment', newComment);
+        console.log('token', this.getters.loggedIn);
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+        const res = await axios.post('/api/comment', newComment, config);
 
         commit('newComment', res.data);
     },

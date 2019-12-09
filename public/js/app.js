@@ -56195,135 +56195,171 @@ var getters = {
 var actions = {
   //actions relativos aos artigos e seus comentários
   fetchArticles: function fetchArticles(_ref) {
-    var commit, res;
+    var commit, config, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchArticles$(_context) {
       while (1) {
         switch (_context.prev = _context.next) {
           case 0:
             commit = _ref.commit;
-            _context.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/article'));
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
+            _context.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get('/api/article', config));
 
-          case 3:
+          case 5:
             res = _context.sent;
             console.log('fetcharticle', res.data);
             commit('setArticles', res.data);
 
-          case 6:
+          case 8:
           case "end":
             return _context.stop();
         }
       }
-    });
+    }, null, this);
   },
   addArticle: function addArticle(_ref2, article) {
-    var commit, res;
+    var commit, config, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function addArticle$(_context2) {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
             commit = _ref2.commit;
-            _context2.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/article', article));
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
+            _context2.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/article', article, config));
 
-          case 3:
+          case 5:
             res = _context2.sent;
             commit('newArticle', res.data);
 
-          case 5:
+          case 7:
           case "end":
             return _context2.stop();
         }
       }
-    });
+    }, null, this);
   },
   deleteArticle: function deleteArticle(_ref3, id) {
-    var commit;
+    var commit, config;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function deleteArticle$(_context3) {
       while (1) {
         switch (_context3.prev = _context3.next) {
           case 0:
             commit = _ref3.commit;
-            _context3.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/article/".concat(id)));
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
+            _context3.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a["delete"]("api/article/".concat(id), config));
 
-          case 3:
+          case 5:
             commit('removeArticle', id);
 
-          case 4:
+          case 6:
           case "end":
             return _context3.stop();
         }
       }
-    });
+    }, null, this);
   },
   updateArticle: function updateArticle(_ref4, updArticle) {
-    var commit, data, res;
+    var commit, config, data, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function updateArticle$(_context4) {
       while (1) {
         switch (_context4.prev = _context4.next) {
           case 0:
             commit = _ref4.commit;
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
             data = {
               title: updArticle.title,
               text: updArticle.text
             };
-            _context4.next = 4;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/article/".concat(updArticle.id), data));
+            _context4.next = 6;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.put("/api/article/".concat(updArticle.id), data, config));
 
-          case 4:
+          case 6:
             res = _context4.sent;
             commit(updArticle, res.data);
 
-          case 6:
+          case 8:
           case "end":
             return _context4.stop();
         }
       }
-    });
+    }, null, this);
   },
   fetchOneArticle: function fetchOneArticle(_ref5, id) {
-    var commit, res;
+    var commit, config, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function fetchOneArticle$(_context5) {
       while (1) {
         switch (_context5.prev = _context5.next) {
           case 0:
             commit = _ref5.commit;
-            _context5.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/article/".concat(id)));
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
+            _context5.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.get("api/article/".concat(id), config));
 
-          case 3:
+          case 5:
             res = _context5.sent;
             console.log('fetchonearticle', res.data);
             commit('setArticles', res.data);
 
-          case 6:
+          case 8:
           case "end":
             return _context5.stop();
         }
       }
-    });
+    }, null, this);
   },
   addComment: function addComment(_ref6, newComment) {
-    var commit, res;
+    var commit, config, res;
     return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function addComment$(_context6) {
       while (1) {
         switch (_context6.prev = _context6.next) {
           case 0:
             commit = _ref6.commit;
-            _context6.next = 3;
-            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/comment', newComment));
+            console.log('token', this.getters.loggedIn);
+            config = {
+              headers: {
+                'Authorization': "Bearer " + this.getters.loggedIn
+              }
+            };
+            _context6.next = 5;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios__WEBPACK_IMPORTED_MODULE_1___default.a.post('/api/comment', newComment, config));
 
-          case 3:
+          case 5:
             res = _context6.sent;
             commit('newComment', res.data);
 
-          case 5:
+          case 7:
           case "end":
             return _context6.stop();
         }
       }
-    });
+    }, null, this);
   },
   //actions de autenticaçao
   retrieveToken: function retrieveToken(_ref7, credentials) {
