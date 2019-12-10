@@ -26,5 +26,7 @@ Route::middleware('auth:api')->group(function() {
     Route::resource('article', 'ArticleController');
     Route::resource('comment', 'CommentController');
 
+    Route::get('/userData', 'UserController@showUserData');
+
     Route::get('/auth/logout', 'AuthenticationController@logout');
 });

@@ -29,6 +29,8 @@ Vue.component('AddArticle', require('./components/AddArticle.vue').default);
 Vue.component('ArticleDetail', require('./components/ArticleDetail.vue').default);
 Vue.component('ArticleUpdate', require('./components/ArticleUpdate.vue').default);
 
+Vue.component('UserPage', require('./components/UserPage.vue').default);
+
 Vue.component('Login', require('./components/auth/Login').default);
 Vue.component('Register', require('./components/auth/Register').default);
 Vue.component('Logout', require('./components/auth/Logout').default);

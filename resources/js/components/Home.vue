@@ -20,9 +20,6 @@ export default {
         Article
     },
     created () {
-        // axios.get('/api/article')
-        // .then(res => this.$store.state.articles = res.data)
-        // .catch(err => console.log(err));
         this.fetchArticles();
     },
     methods: {

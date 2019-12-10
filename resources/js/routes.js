@@ -10,6 +10,8 @@ import Login from './components/auth/Login.vue';
 import Register from './components/auth/Register.vue';
 import Logout from './components/auth/Logout.vue';
 
+import UserPage from './components/UserPage.vue';
+
 import store from './store/index.js';
 
 
@@ -47,6 +49,15 @@ const router =  new Router({
             path: '/articleedit',
             name: 'articleupdate',
             component: ArticleUpdate,
+            props: true,
+            meta: {
+                requiresAuth: true
+            }
+        },
+        {
+            path: '/user',
+            name: 'userpage',
+            component: UserPage,
             props: true,
             meta: {
                 requiresAuth: true

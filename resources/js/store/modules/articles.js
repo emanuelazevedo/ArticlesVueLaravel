@@ -3,13 +3,15 @@ import axios from 'axios';
 const state = {
     articles:[],
     token: '' || null,
+    user: [],
 };
 
 const getters = {
     allArticles: (state) => state.articles,
     loggedIn(state) {
         return state.token
-    }
+    },
+    userData: (state) => state.user,
 };
 
 const actions = {
@@ -25,6 +27,7 @@ const actions = {
         console.log('fetcharticle',res.data);
         commit('setArticles', res.data);
     },
+
     async addArticle({ commit }, article) {
         console.log('token', this.getters.loggedIn);
         
@@ -37,6 +40,7 @@ const actions = {
         commit('newArticle', res.data);
 
     },
+
     async deleteArticle({ commit }, id) {
         console.log('token', this.getters.loggedIn);
         var config = {
@@ -46,6 +50,7 @@ const actions = {
 
         commit('removeArticle', id);
     },
+    
     async updateArticle({ commit }, updArticle) {
         console.log('token', this.getters.loggedIn);
         var config = {
@@ -56,6 +61,7 @@ const actions = {
 
         commit(updArticle, res.data);
     },
+
     async fetchOneArticle({ commit }, id) {
         console.log('token', this.getters.loggedIn);
         var config = {
@@ -65,6 +71,7 @@ const actions = {
         console.log('fetchonearticle',res.data);
         commit('setArticles', res.data);
     },
+
     async addComment({ commit }, newComment) {
         console.log('token', this.getters.loggedIn);
         var config = {
@@ -74,6 +81,7 @@ const actions = {
 
         commit('newComment', res.data);
     },
+
 
     //actions de autenticaçao
     async retrieveToken({ commit }, credentials) {
@@ -91,7 +99,19 @@ const actions = {
         await axios.get('/api/auth/logout').catch(err => console.log('err', err));
         // localStorage.removeItem('access_token');
         commit('destroyToken');
-    }
+    },
+
+    
+    //actions de dados do user
+    async getUserData({ commit }) {
+        var config = {
+            headers: {'Authorization': "Bearer " + this.getters.loggedIn}
+        };
+
+        const res = await axios.get('/api/userData', config);
+        console.log('hello there', res.data);
+        commit('getUserData', res.data);
+    },
 
 };
 
@@ -104,12 +124,16 @@ const mutations = {
         state.articles.comments.push(commentData);
         console.log('state',state.articles.comments);
     },
-    //
+
+    //mutations de autenticaçao 
     retrieveToken: (state, token) => (state.token = token),
     destroyToken: (state) => {
         state.token = null
         console.log(state.token);
     },
+
+    //mutations dos dados do user
+    getUserData: (state, user) => (state.user = user),
 };
 
 export default {
