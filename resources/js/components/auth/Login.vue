@@ -1,22 +1,26 @@
 <template>
     <div>
-        <h2>Login</h2>
-        <form @submit="onSubmit">
-            <div class="form-control">
-                <label for="email">Username/Email</label>
-                <input type="email" name="email" id="email" class="login-input" v-model="email">
-            </div>
+        <div class="row">
+            <h2>Login</h2>
+        </div>
+        <div class="row">
+            
+            <form @submit="onSubmit">
+                <div >
+                    <label for="email">Username/Email</label>
+                    <input type="email" name="email" id="email" class="login-input" v-model="email">
+                </div>
 
-            <div class="form-control mb-more">
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" class="login-input" v-model="password">
-            </div>
+                <div >
+                    <label for="password">Password</label>
+                    <input type="password" name="password" id="password" class="login-input" v-model="password">
+                </div>
 
-            <div class="form-control">
-                <button type="submit" class="btn-submit">Login</button>
-            </div>
-
-        </form>
+                <div>
+                    <button type="submit" class="btn-submit">Login</button>
+                </div>
+           </form>
+        </div>
     </div>
 </template>
 <script>

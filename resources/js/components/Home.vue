@@ -1,8 +1,10 @@
 <template>
     <div>
-        <h1>Home</h1>
-        <div v-bind:key="article.id" v-for="article in allArticles">
-            <Article v-bind:article="article" v-on:deleteArticle="deleteArticle"  />
+        <div class="row"><h1>Home</h1></div>
+        <div class="row">
+            <div v-bind:key="article.id" v-for="article in allArticles">
+                <Article v-bind:article="article" v-on:deleteArticle="deleteArticle"  />
+            </div>
         </div>
     </div>
 </template>

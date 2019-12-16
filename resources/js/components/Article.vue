@@ -1,5 +1,5 @@
 <template>
-    <div class="md-col-8 mc-offset-col-2">
+    <div class="md-col-8 md-offset-col-2">
         <router-link :to="{ name: 'articledetail', params: { id: article.id }}">
             <h3>{{article.title}}</h3>
             <div>{{article.text}}</div>
