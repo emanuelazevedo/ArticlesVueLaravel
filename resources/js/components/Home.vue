@@ -1,10 +1,9 @@
 <template>
-    <div>
+    <div class="page">
         <div class="row"><h1>Home</h1></div>
-        <div class="row">
-            <div v-bind:key="article.id" v-for="article in allArticles">
-                <Article v-bind:article="article" v-on:deleteArticle="deleteArticle"  />
-            </div>
+        
+        <div v-bind:key="article.id" v-for="article in allArticles" class="row">
+            <Article v-bind:article="article" v-on:deleteArticle="deleteArticle"  />
         </div>
     </div>
 </template>
@@ -37,5 +36,11 @@ export default {
     
 }
 </script>
-<style>
+<style scoped>
+    .page {
+        position: relative;
+        top: 10px;
+        left: 10px;
+    }
+
 </style>

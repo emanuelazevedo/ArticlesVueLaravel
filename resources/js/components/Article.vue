@@ -1,11 +1,11 @@
 <template>
-    <div class="md-col-8 md-offset-col-2">
+    <div class="col-md-8 offset-md-2">
         <router-link :to="{ name: 'articledetail', params: { id: article.id }}">
             <h3>{{article.title}}</h3>
             <div>{{article.text}}</div>
         </router-link>
         
-        <div class="md-col-4">
+        <div >
             <router-link :to="{ name: 'articleupdate', params: { id: article.id }}">
                 <button>Edit</button>
             </router-link>
@@ -28,4 +28,6 @@ export default {
     }
 }
 </script>
-<style></style>
+<style scoped>
+    
+</style>

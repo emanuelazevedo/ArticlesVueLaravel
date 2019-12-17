@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="login-page">
         <div class="row">
             <h2>Login</h2>
         </div>
@@ -47,3 +47,24 @@ import { mapActions } from "vuex";
         }
     }
 </script>
+<style scoped>
+    .login-page {
+        position: relative;
+        top: 10px;
+        left: 10px;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    input {
+        border-radius: 5px;
+        width: 35%;
+    }
+
+    button {
+        border-radius: 5px;
+        width: 15%;
+    }
+</style>

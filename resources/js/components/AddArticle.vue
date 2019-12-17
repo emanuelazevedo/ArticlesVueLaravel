@@ -1,11 +1,14 @@
 <template>
-    <div>
-        <form @submit="onSubmit">
-            <input type="text" v-model="title" name="title" placeholder="Add Title" />
-            <br>
-            <input type="text" v-model="text" name="text" placeholder="Add Text"  />
-            <input type="submit" value="Submit!" class="btn">
-        </form>
+    <div class="page">
+        <h1>New Article</h1>
+        <div >
+            <form @submit="onSubmit">
+                <input type="text" v-model="title" name="title" placeholder="Add Title" />
+                <br>
+                <input type="text" v-model="text" name="text" placeholder="Add Text"  />
+                <button type="submit" class="btn-submit">Submit</button>
+            </form>
+        </div>
     </div>
 </template>
 <script>

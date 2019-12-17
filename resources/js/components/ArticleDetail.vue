@@ -1,14 +1,14 @@
 <template>
-    <div>
+    <div class="page">
         <h1>{{allArticles.title}}</h1>
         <h3>{{allArticles.text}}</h3>
         <div>
             <form @submit="onSubmit" method="post">
                 <input type="text" v-model="commentText" name="commentText" placeholder="Add Text"  />
-                <input type="submit" value="Submit" class="btn">
+                <button type="submit" class="btn-submit">Submit</button>
             </form>
         </div>
-        <div v-bind:key="comment.id" v-for="comment in allArticles.comments">
+        <div v-bind:key="comment.id" v-for="comment in allArticles.comments" class="comments">
             {{ comment.commentText }}
         </div>
         
@@ -58,4 +58,10 @@ export default {
 }
 </script>
 <style>
+    .comments {
+        position: relative;
+        left: 5px;
+        top: 10px;
+        font-size: 20px;
+    }
 </style>

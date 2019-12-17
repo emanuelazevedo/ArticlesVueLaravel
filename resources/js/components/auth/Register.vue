@@ -1,5 +1,5 @@
 <template>
-  <div >
+  <div class="register-page">
     <div class="row"><h2>Register</h2></div>
     
     <div class="row">
@@ -29,7 +29,7 @@
   </div>
 </template>
 
-<script>
+<script scoped>
 import { mapActions } from "vuex";
 export default {
     data() {
@@ -53,3 +53,24 @@ export default {
     }
 }
 </script>
+<style>
+    .register-page {
+        position: relative;
+        top: 10px;
+        left: 10px;
+    }
+
+    form {
+        width: 80%;
+    }
+
+    input {
+        border-radius: 5px;
+        width: 35%;
+    }
+
+    button {
+        border-radius: 5px;
+        width: 15%;
+    }
+</style>
